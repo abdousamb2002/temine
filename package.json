@@ -1,0 +1,48 @@
+{
+  "name": "temine",
+  "version": "0.6.0",
+  "description": "Terminal management tool for AI coding workflows. Manage multiple Claude Code / AI CLI windows with smart arrangement, status detection, notifications and web dashboard.",
+  "type": "module",
+  "bin": {
+    "temine": "./bin/temine.js"
+  },
+  "files": [
+    "bin/",
+    "lib/"
+  ],
+  "scripts": {
+    "start": "node bin/temine.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "terminal",
+    "terminal-manager",
+    "window-manager",
+    "claude",
+    "claude-code",
+    "ai",
+    "ai-coding",
+    "cli",
+    "macos",
+    "applescript",
+    "multi-window",
+    "dashboard",
+    "notification",
+    "developer-tools",
+    "productivity",
+    "vibe-coding"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zzmlb/temine.git"
+  },
+  "homepage": "https://github.com/zzmlb/temine",
+  "bugs": {
+    "url": "https://github.com/zzmlb/temine/issues"
+  },
+  "author": "zzm",
+  "license": "MIT",
+  "dependencies": {}
+}
