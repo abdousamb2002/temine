@@ -9,7 +9,7 @@ import { showConfig, setConfigValue, resetConfig } from '../lib/config.js';
 import { startFloat } from '../lib/float.js';
 import { startPanel } from '../lib/panel.js';
 
-const VERSION = '0.6.0';
+const VERSION = '0.7.0';
 const args = process.argv.slice(2);
 const command = args[0];
 

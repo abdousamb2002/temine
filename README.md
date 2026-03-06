@@ -2,7 +2,6 @@
 
 > AI 编程终端管理工具 / Terminal management tool for AI coding workflows
 
-[![npm version](https://img.shields.io/npm/v/temine.svg)](https://www.npmjs.com/package/temine)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D18.0.0-green.svg)](https://nodejs.org)
 [![Platform](https://img.shields.io/badge/platform-macOS-lightgrey.svg)](https://www.apple.com/macos)
@@ -27,12 +26,6 @@ Temine 是一个专为 AI 编程场景设计的终端管理工具。当你同时
 - **窗口标签** — 给终端命名，自动匹配图标
 
 ### 安装
-
-```bash
-npm install -g temine
-```
-
-或克隆到本地：
 
 ```bash
 git clone https://github.com/zzmlb/temine.git
@@ -143,12 +136,6 @@ Temine is a terminal management tool built for developers who run multiple AI CL
 - **Window labels** — Name your terminals with auto-matched icons
 
 ### Installation
-
-```bash
-npm install -g temine
-```
-
-Or clone and link locally:
 
 ```bash
 git clone https://github.com/zzmlb/temine.git
