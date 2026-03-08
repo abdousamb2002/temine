@@ -4,3 +4,10 @@ node_modules/
 *.tar.gz
 .env
 .env.*
+
+# Temine 本地数据（含连接凭证）
+.temine/
+~/.temine/
+ssh-connections.json
+ssh-presets.json
+global-recording.json
