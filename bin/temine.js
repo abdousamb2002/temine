@@ -132,6 +132,90 @@ switch (command) {
     break;
   }
 
+  case 'app': {
+    // 生成 macOS .app 快捷方式，可放入 Dock / Applications
+    if (process.platform !== 'darwin') {
+      console.log('❌ temine app 仅支持 macOS');
+      break;
+    }
+    const appPort = parseInt(args[1]) || 7890;
+    const appDir = args.includes('--global')
+      ? '/Applications/Temine.app'
+      : `${process.env.HOME}/Applications/Temine.app`;
+
+    const { mkdirSync, writeFileSync, chmodSync, existsSync } = await import('node:fs');
+    const contentsDir = `${appDir}/Contents`;
+    const macosDir = `${contentsDir}/MacOS`;
+
+    mkdirSync(macosDir, { recursive: true });
+
+    // 查找 temine 的绝对路径
+    const { execSync: ex } = await import('node:child_process');
+    let teminePath;
+    try { teminePath = ex('which temine', { encoding: 'utf8' }).trim(); } catch {
+      teminePath = `${process.argv[1]}`;
+    }
+
+    // 生成启动脚本
+    const launcher = `#!/bin/bash
+# Temine Panel Launcher
+PORT=${appPort}
+URL="http://localhost:$PORT"
+TEMINE="${teminePath}"
+
+# 检查面板是否已运行
+if ! curl -s --connect-timeout 1 "$URL" > /dev/null 2>&1; then
+  # 后台启动面板服务
+  nohup "$TEMINE" panel $PORT > /dev/null 2>&1 &
+  # 等待服务就绪（最多5秒）
+  for i in $(seq 1 50); do
+    if curl -s --connect-timeout 1 "$URL" > /dev/null 2>&1; then break; fi
+    sleep 0.1
+  done
+fi
+
+# 用 Chrome/Edge app mode 打开，fallback 到默认浏览器
+if open -a "Google Chrome" --args --app="$URL" 2>/dev/null; then
+  exit 0
+elif open -a "Microsoft Edge" --args --app="$URL" 2>/dev/null; then
+  exit 0
+else
+  open "$URL"
+fi
+`;
+    writeFileSync(`${macosDir}/Temine`, launcher);
+    chmodSync(`${macosDir}/Temine`, 0o755);
+
+    // 生成 Info.plist
+    const plist = `<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>CFBundleExecutable</key><string>Temine</string>
+  <key>CFBundleIdentifier</key><string>com.temine.panel</string>
+  <key>CFBundleName</key><string>Temine</string>
+  <key>CFBundleVersion</key><string>0.8.0</string>
+  <key>CFBundleShortVersionString</key><string>0.8.0</string>
+  <key>CFBundlePackageType</key><string>APPL</string>
+  <key>LSUIElement</key><true/>
+</dict>
+</plist>`;
+    writeFileSync(`${contentsDir}/Info.plist`, plist);
+
+    console.log(`\n✅ 已生成 Temine.app`);
+    console.log(`   位置: ${appDir}`);
+    console.log(`   端口: ${appPort}`);
+    console.log(`\n   使用方式:`);
+    console.log(`   • 双击打开，或拖到 Dock 固定`);
+    console.log(`   • Spotlight 搜索 "Temine" 打开`);
+    if (!appDir.startsWith('/Applications')) {
+      console.log(`\n   💡 加 --global 可安装到 /Applications:`);
+      console.log(`      sudo temine app --global`);
+    }
+    console.log('');
+    break;
+  }
+
   case 'config': {
     const sub = args[1];
     if (sub === 'set') {
@@ -220,6 +304,7 @@ function printHelp() {
     temine stop                          停止监控
     temine float                         终端内状态面板
     temine panel [端口]                   打开 Web 控制面板（默认 7890）
+    temine app [端口] [--global]          生成 macOS .app 快捷方式到 Dock
 
   历史记录:
     temine log list                      列出记录的会话
@@ -240,5 +325,6 @@ function printHelp() {
     temine label-all 前端 API test 监控  一次性命名所有窗口
     temine watch                         启动监控
     temine panel                         打开 Web 控制面板
+    temine app                           生成 Temine.app 放到 Dock
 `);
 }
