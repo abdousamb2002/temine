@@ -163,22 +163,26 @@ PORT=${appPort}
 URL="http://localhost:$PORT"
 TEMINE="${teminePath}"
 
+# 加载用户 PATH（确保能找到 node/temine）
+export PATH="/usr/local/bin:/opt/homebrew/bin:$HOME/.nvm/versions/node/*/bin:$PATH"
+
 # 检查面板是否已运行
 if ! curl -s --connect-timeout 1 "$URL" > /dev/null 2>&1; then
-  # 后台启动面板服务
   nohup "$TEMINE" panel $PORT > /dev/null 2>&1 &
-  # 等待服务就绪（最多5秒）
   for i in $(seq 1 50); do
     if curl -s --connect-timeout 1 "$URL" > /dev/null 2>&1; then break; fi
     sleep 0.1
   done
 fi
 
-# 用 Chrome/Edge app mode 打开，fallback 到默认浏览器
-if open -a "Google Chrome" --args --app="$URL" 2>/dev/null; then
-  exit 0
-elif open -a "Microsoft Edge" --args --app="$URL" 2>/dev/null; then
-  exit 0
+# 直接调用 Chrome 可执行文件（--app 在 Chrome 已运行时也能生效）
+CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+EDGE="/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge"
+
+if [ -x "$CHROME" ]; then
+  "$CHROME" --app="$URL" &
+elif [ -x "$EDGE" ]; then
+  "$EDGE" --app="$URL" &
 else
   open "$URL"
 fi
